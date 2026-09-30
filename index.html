@@ -11,8 +11,6 @@
 body{margin:0;background:#f3f4f9;color:#1e293b}
 .header{background:linear-gradient(180deg,#0f2455 0%,#1a3a7a 100%);color:white;padding:22px 18px 28px;text-align:center;border-radius:0 0 24px 24px;position:relative}
 .badge-top{display:inline-block;background:rgba(255,213,79,.18);border:1px solid #ffd54f;color:#ffecb3;padding:3px 12px;border-radius:20px;font-size:11px;margin-bottom:10px}
-.logo{width:112px;height:112px;background:white;border-radius:50%;padding:3px;margin:0 auto 12px;border:3px solid #d4af37;box-shadow:0 6px 18px rgba(0,0,0,.3);overflow:hidden}
-.logo img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .header h1{margin:0;font-size:26px}.header p{margin:6px 0 0;opacity:.85;font-size:13px}
 .container{max-width:950px;margin:0 auto;padding:14px}
 .box{background:white;border-radius:16px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:12px}
@@ -26,143 +24,118 @@ body{margin:0;background:#f3f4f9;color:#1e293b}
 .s-card{background:white;border-radius:14px;padding:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;gap:10px;align-items:center}
 .s-card h3{margin:0;font-size:18px}.s-card span{font-size:12px;color:#64748b}
 .s-card.grand{background:linear-gradient(135deg,#1a237e,#3949ab);color:white}
-.s-card.grand span{color:#c5cae9}
-.s-card.grand h3{color:white}
+.s-card.grand span{color:#c5cae9}.s-card.grand h3{color:white}
 .main-card{background:white;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.06);overflow:hidden}
 .head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f1f5f9;flex-wrap:wrap;gap:8px}
 .btn{border:0;padding:7px 12px;border-radius:8px;font-weight:700;cursor:pointer}
 .btn-primary{background:#1a237e;color:white}.btn-danger{background:#fee2e2;color:#991b1b}.btn-ok{background:#dcfce7;color:#166534}
 table{width:100%;border-collapse:collapse} th{background:#f8fafc;padding:10px 12px;text-align:left;font-size:12px;color:#64748b} td{padding:10px 12px;border-top:1px solid #f1f5f9;font-size:13px}
 .badge{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}.paid{background:#dcfce7;color:#166534}.due{background:#fee2e2;color:#991b1b}
-.action{display:flex;gap:4px;flex-wrap:wrap}
-.edit-icon{cursor:pointer;margin-left:6px}
-.pdf-btn{position:fixed;top:14px;right:14px;z-index:9999;background:#ffca28;color:#1a237e;border:none;padding:10px 16px;border-radius:50px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3);display:flex;align-items:center;gap:6px}
+.action{display:flex;gap:4px;flex-wrap:wrap}.edit-icon{cursor:pointer;margin-left:6px}
+.pdf-btn{position:fixed;top:14px;right:14px;z-index:9999;background:#ffca28;color:#1a237e;border:none;padding:10px 16px;border-radius:50px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3)}
 @media(min-width:700px){.month-grid{grid-template-columns:repeat(6,1fr)}.stats{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
-
 <button id="pdfDownloadBtn" class="pdf-btn">📄 PDF</button>
-
-<div class="header" id="pdfArea">
+<div class="header">
   <div class="badge-top">বিসমিহী তায়ালা</div>
   <h1 id="societyName">ইনসাফ সমিতি</h1>
   <p id="societySub">رفـقـاء الـدرب الـمـدنـي 🕍</p>
-  <span id="editTitleBtn" style="display:none;position:absolute;top:10px;right:14px;cursor:pointer;background:rgba(255,255,255,.2);padding:4px 8px;border-radius:6px;font-size:12px" onclick="editSociety()">✏️ নাম বদলান</span>
+  <span id="editTitleBtn" style="display:none;position:absolute;top:10px;right:14px;cursor:pointer;background:rgba(255,255,255,.2);padding:4px 8px;border-radius:6px;font-size:12px">✏️ নাম বদলান</span>
 </div>
-
 <div class="container">
   <div class="box">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <b>সাল নির্বাচন করুন</b>
-      <span style="font-size:11px;color:#64748b">সবাই দেখতে পারবে</span>
-    </div>
+    <b>সাল নির্বাচন করুন</b>
     <div class="year-row" id="yearRow" style="margin-top:10px"></div>
   </div>
-
   <div class="box">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <b>মাস নির্বাচন করুন</b>
-      <button class="btn btn-primary" id="adminBtn" onclick="toggleAdmin()">🔒 অ্যাডমিন লগইন</button>
+      <button class="btn btn-primary" id="adminBtn">🔒 অ্যাডমিন লগইন</button>
     </div>
     <div class="month-grid" id="monthGrid"></div>
-
     <div class="stats">
       <div class="s-card"><div>👥</div><div><h3 id="tm">৭ জন</h3><span>মোট সদস্য</span></div></div>
       <div class="s-card"><div>💰</div><div><h3 id="tj">৳ 0</h3><span id="tjLabel">এই মাসে মোট জমা</span></div></div>
       <div class="s-card"><div>⏰</div><div><h3 id="tbk">৳ 0</h3><span>এই মাসে মোট বাকি</span></div></div>
       <div class="s-card"><div>📊</div><div><h3 id="pc">০/০</h3><span>জমা / বাকি</span></div></div>
-      <div class="s-card grand" style="grid-column: span 2;"><div>🏦</div><div><h3 id="grandTotal">৳ 0</h3><span>পুরো সমিতির সর্বমোট জমা (সব সাল)</span></div></div>
+      <div class="s-card grand" style="grid-column: span 2;"><div>🏦</div><div><h3 id="grandTotal">৳ 0</h3><span>পুরো সমিতির সর্বমোট জমা</span></div></div>
     </div>
   </div>
-
   <div class="main-card">
     <div class="head">
       <b id="curTitle">২০২৬ - জানুয়ারি হিসাব</b>
       <div id="adminControls" style="display:none;gap:6px">
-        <button class="btn btn-ok" onclick="addMember()">+ সদস্য যোগ</button>
-        <button class="btn" style="background:#fff7ed;color:#9a3412" onclick="addYear()">+ নতুন সাল</button>
+        <button class="btn btn-ok" id="addMemberBtn">+ সদস্য যোগ</button>
+        <button class="btn" style="background:#fff7ed;color:#9a3412" id="addYearBtn">+ নতুন সাল</button>
       </div>
     </div>
     <table>
       <thead><tr><th>সদস্য নাম</th><th>অবস্থা</th><th>টাকা</th><th>অ্যাকশন</th></tr></thead>
       <tbody id="tbody"></tbody>
-      <tfoot>
-        <tr style="background:#eef2ff;font-weight:700"><td colspan="2" style="text-align:right">এই মাসের মোট জমা =</td><td id="footMonthTotal" colspan="2">৳ 0</td></tr>
-      </tfoot>
+      <tfoot><tr style="background:#eef2ff;font-weight:700"><td colspan="2" style="text-align:right">এই মাসের মোট জমা =</td><td id="footMonthTotal" colspan="2">৳ 0</td></tr></tfoot>
     </table>
   </div>
-  <p style="text-align:center;color:#94a3b8;font-size:11px;margin-top:12px">* টাকা যোগ/বিয়োগ এবং সদস্য যোগ/বিয়োগ শুধু অ্যাডমিন পারবে, অন্যরা শুধু দেখবে</p>
 </div>
-
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyCDIPp6lv5aQkgEGWrCUrTr5zZkMCBwW6Q",
+  authDomain: "insaf-page.firebaseapp.com",
+  projectId: "insaf-page",
+  storageBucket: "insaf-page.firebasestorage.app",
+  messagingSenderId: "2107251786",
+  appId: "1:2107251786:web:34403298d77daa0e709ab3",
+  measurementId: "G-P0XZ6001S6"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const docRef = doc(db, "insaf", "main");
 const months=["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
-let FEE=2000;
-let curYear=2026;
-let curMonth=0;
-let isAdmin=false;
-
-let years=JSON.parse(localStorage.getItem("insaf_years")||"[2026]");
-let members=JSON.parse(localStorage.getItem("insaf_members")||'["m-1","m-2","m-3","m-4","m-5","m-6","m-7"]');
-let data=JSON.parse(localStorage.getItem("insaf_data")||"{}");
-let sName=localStorage.getItem("insaf_sname")||"ইনসাফ সমিতি";
-let sSub=localStorage.getItem("insaf_ssub")||"رفـقـاء الـدرب الـمـدنـي 🕍";
-document.getElementById("societyName").innerText=sName;
-document.getElementById("societySub").innerText=sSub;
-
-function key(y,m,i){return `${y}_${m}_${i}`;}
-
+let FEE=2000, curYear=2026, curMonth=0, isAdmin=false;
+let years=[2026];
+let members=["m-1","m-2","m-3","m-4","m-5","m-6","m-7"];
+let data={};
+let sName="ইনসাফ সমিতি", sSub="رفـقـاء الـدرب الـمـدنـي 🕍";
+const key=(y,m,i)=>`${y}_${m}_${i}`;
 function renderYears(){
-  let row=document.getElementById("yearRow"); row.innerHTML="";
+  const row=document.getElementById("yearRow"); row.innerHTML="";
   years.sort().forEach(y=>{
-    let b=document.createElement("button");
-    b.className="y-btn"+(y==curYear?" active":"");
-    b.innerText=y;
-    b.onclick=()=>{curYear=y; renderAll();}
-    row.appendChild(b);
+    const b=document.createElement("button"); b.className="y-btn"+(y==curYear?" active":""); b.innerText=y;
+    b.onclick=()=>{curYear=y; renderAll();}; row.appendChild(b);
   });
 }
 function renderMonths(){
-  let g=document.getElementById("monthGrid"); g.innerHTML="";
+  const g=document.getElementById("monthGrid"); g.innerHTML="";
   months.forEach((m,i)=>{
-    let b=document.createElement("button");
-    b.className="m-btn"+(i==curMonth?" active":"");
-    b.innerText=m;
-    b.onclick=()=>{curMonth=i; renderAll();}
-    g.appendChild(b);
+    const b=document.createElement("button"); b.className="m-btn"+(i==curMonth?" active":""); b.innerText=m;
+    b.onclick=()=>{curMonth=i; renderAll();}; g.appendChild(b);
   });
 }
 function renderTable(){
-  let tb=document.getElementById("tbody"); tb.innerHTML="";
+  const tb=document.getElementById("tbody"); tb.innerHTML="";
   let totalJomaMonth=0, paid=0;
   members.forEach((name,idx)=>{
-    let k=key(curYear,curMonth,idx);
-    let amt=data[k]||0;
-    let ok=amt>=FEE;
-    if(ok){paid++; totalJomaMonth+=amt;}
-    else if(amt>0){ totalJomaMonth+=amt; } // আংশিক জমাও যোগ হবে
-    let tr=document.createElement("tr");
-    tr.innerHTML=`
-      <td><b>${name}</b> ${isAdmin?`<span class="edit-icon" onclick="renameMember(${idx})">✏️</span>`:''}</td>
+    const k=key(curYear,curMonth,idx); const amt=data[k]||0;
+    const ok=amt>=FEE; if(ok){paid++; totalJomaMonth+=amt;} else if(amt>0){totalJomaMonth+=amt;}
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><b>${name}</b> ${isAdmin?`<span class="edit-icon" data-i="${idx}" data-act="rename">✏️</span>`:''}</td>
       <td><span class="badge ${ok?'paid':'due'}">${ok?'✅ জমা':'❌ বাকি'}</span></td>
       <td>৳ ${amt}</td>
-      <td><div class="action">
-        ${isAdmin?`<button class="btn btn-ok" style="padding:4px 8px" onclick="addMoney(${idx})">+ যোগ</button>
-        <button class="btn btn-danger" style="padding:4px 8px" onclick="subMoney(${idx})">- বিয়োগ</button>
-        <button class="btn btn-danger" style="padding:4px 8px" onclick="deleteMember(${idx})">🗑️</button>`:`<span style="color:#94a3b8;font-size:11px">ভিউ</span>`}
-      </div></td>
-    `;
+      <td><div class="action">${isAdmin?`<button class="btn btn-ok" data-i="${idx}" data-act="add">+ যোগ</button><button class="btn btn-danger" data-i="${idx}" data-act="sub">- বিয়োগ</button><button class="btn btn-danger" data-i="${idx}" data-act="del">🗑️</button>`:`<span style="color:#94a3b8">-</span>`}</div></td>`;
     tb.appendChild(tr);
   });
-
-  // হিসাব
-  let totalMember=members.length;
-  let totalExpected=totalMember*FEE;
-  let totalBaki=Math.max(0, totalExpected - totalJomaMonth);
-
-  // পুরো সমিতির সর্বমোট (সব সাল + সব মাস)
-  let grandTotal = Object.values(data).reduce((s,v)=>s+(parseInt(v)||0),0);
-
+  tb.querySelectorAll("button,.edit-icon").forEach(el=>{
+    el.onclick=()=>{
+      const i=parseInt(el.dataset.i); const act=el.dataset.act;
+      if(act=="add") addMoney(i); if(act=="sub") subMoney(i); if(act=="del") deleteMember(i); if(act=="rename") renameMember(i);
+    }
+  });
+  const totalMember=members.length, totalExpected=totalMember*FEE;
+  const totalBaki=Math.max(0,totalExpected-totalJomaMonth);
+  const grandTotal=Object.values(data).reduce((s,v)=>s+(parseInt(v)||0),0);
   document.getElementById("tm").innerText=totalMember+" জন";
   document.getElementById("tj").innerText="৳ "+totalJomaMonth.toLocaleString("bn-BD");
   document.getElementById("tbk").innerText="৳ "+totalBaki.toLocaleString("bn-BD");
@@ -173,45 +146,34 @@ function renderTable(){
   document.getElementById("tjLabel").innerText=`এই মাসে মোট জমা (${totalMember}×${FEE})`;
 }
 function renderAll(){renderYears();renderMonths();renderTable();}
-function save(){localStorage.setItem("insaf_members",JSON.stringify(members)); localStorage.setItem("insaf_data",JSON.stringify(data)); localStorage.setItem("insaf_years",JSON.stringify(years)); renderAll();}
-function addMoney(i){let a=parseInt(prompt("কত টাকা যোগ করবেন?",FEE)); if(!a)return; let k=key(curYear,curMonth,i); data[k]=(data[k]||0)+a; save();}
-function subMoney(i){let a=parseInt(prompt("কত টাকা বিয়োগ করবেন?",FEE)); if(!a)return; let k=key(curYear,curMonth,i); data[k]=Math.max(0,(data[k]||0)-a); save();}
-function addMember(){let n=prompt("নতুন সদস্যের নাম লিখুন:"); if(!n)return; members.push(n.trim()); save();}
+async function save(){ renderAll(); await setDoc(docRef, {years,members,data,sName,sSub,FEE}); }
+function addMoney(i){let a=parseInt(prompt("কত টাকা যোগ করবেন?",FEE)); if(!a)return; const k=key(curYear,curMonth,i); data[k]=(data[k]||0)+a; save();}
+function subMoney(i){let a=parseInt(prompt("কত টাকা বিয়োগ করবেন?",FEE)); if(!a)return; const k=key(curYear,curMonth,i); data[k]=Math.max(0,(data[k]||0)-a); save();}
+function addMember(){let n=prompt("নতুন সদস্যের নাম:"); if(!n)return; members.push(n.trim()); save();}
 function renameMember(i){let n=prompt("নতুন নাম:",members[i]); if(!n)return; members[i]=n.trim(); save();}
-function deleteMember(i){if(!confirm(members[i]+" কে ডিলিট করবেন?"))return; members.splice(i,1);
-  let newData={};
-  Object.keys(data).forEach(k=>{
-    let [y,m,idx]=k.split("_").map(Number);
-    if(idx==i) return;
-    if(idx>i) { let nk=key(y,m,idx-1); newData[nk]=data[k]; } else newData[k]=data[k];
-  });
-  data=newData;
-  save();
-}
-function addYear(){let y=parseInt(prompt("কোন সাল যোগ করবেন? যেমন 2027",curYear+1)); if(!y||years.includes(y))return; years.push(y); curYear=y; save();}
-function editSociety(){let n=prompt("সমিতির নাম:",sName); if(n){sName=n; localStorage.setItem("insaf_sname",n); document.getElementById("societyName").innerText=n;} let s=prompt("নিচের ছোট লেখা:",sSub); if(s){sSub=s; localStorage.setItem("insaf_ssub",s); document.getElementById("societySub").innerText=s;}}
-function toggleAdmin(){
+function deleteMember(i){if(!confirm(members[i]+" কে ডিলিট করবেন?"))return; members.splice(i,1); let nd={}; Object.keys(data).forEach(k=>{const p=k.split("_"); if(p.length<3)return; let y=+p[0],m=+p[1],idx=+p[2]; if(idx==i)return; if(idx>i) nd[`${y}_${m}_${idx-1}`]=data[k]; else nd[k]=data[k];}); data=nd; save();}
+function addYear(){let y=parseInt(prompt("কোন সাল?",curYear+1)); if(!y||years.includes(y))return; years.push(y); curYear=y; save();}
+document.getElementById("editTitleBtn").onclick=()=>{
+  let n=prompt("সমিতির নাম:",sName); if(n){sName=n; document.getElementById("societyName").innerText=n;}
+  let s=prompt("নিচের লেখা:",sSub); if(s){sSub=s; document.getElementById("societySub").innerText=s;} save();
+};
+document.getElementById("addMemberBtn").onclick=()=>addMember();
+document.getElementById("addYearBtn").onclick=()=>addYear();
+document.getElementById("adminBtn").onclick=()=>{
   if(isAdmin){isAdmin=false; document.getElementById("adminBtn").innerText="🔒 অ্যাডমিন লগইন"; document.getElementById("adminControls").style.display="none"; document.getElementById("editTitleBtn").style.display="none"; renderAll(); return;}
-  let p=prompt("অ্যাডমিন পাসওয়ার্ড দিন:"); if(p==="insaf123"){isAdmin=true; document.getElementById("adminBtn").innerText="🔓 লগআউট (অ্যাডমিন)"; document.getElementById("adminControls").style.display="flex"; document.getElementById("editTitleBtn").style.display="block"; renderAll(); alert("অ্যাডমিন লগইন সফল!");} else if(p) alert("পাসওয়ার্ড ভুল!");
-}
-
-// PDF ডাউনলোড
-document.getElementById('pdfDownloadBtn').addEventListener('click', function() {
-    // PDF বাটনটা হাইড করে দিবো যাতে PDF এ না আসে
-    this.style.display='none';
-    const element = document.body;
-    var opt = {
-      margin: 0.1,
-      filename: `insaf-somiti-${curYear}-${months[curMonth]}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save().then(()=> {
-        document.getElementById('pdfDownloadBtn').style.display='flex';
-    });
+  let p=prompt("অ্যাডমিন পাসওয়ার্ড:"); if(p==="insaf123"){isAdmin=true; document.getElementById("adminBtn").innerText="🔓 লগআউট"; document.getElementById("adminControls").style.display="flex"; document.getElementById("editTitleBtn").style.display="block"; renderAll();} else if(p) alert("ভুল পাসওয়ার্ড!");
+};
+document.getElementById('pdfDownloadBtn').onclick=function(){
+  this.style.display='none'; const el=document.body;
+  html2pdf().set({margin:0.1,filename:`insaf-${curYear}-${months[curMonth]}.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(el).save().then(()=>{document.getElementById('pdfDownloadBtn').style.display='block';});
+};
+onSnapshot(docRef,(snap)=>{
+  if(snap.exists()){
+    const d=snap.data(); years=d.years||years; members=d.members||members; data=d.data||{}; sName=d.sName||sName; sSub=d.sSub||sSub; FEE=d.FEE||FEE;
+    document.getElementById("societyName").innerText=sName; document.getElementById("societySub").innerText=sSub;
+    renderAll();
+  }else{ save(); }
 });
-
 renderAll();
 </script>
 </body>
